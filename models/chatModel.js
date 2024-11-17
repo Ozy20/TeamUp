@@ -5,8 +5,10 @@ const chatSchema = new Schema(
   {
     messages: [
       {
-        senderId: { type: mongoose.Schema.Types.ObjectId, required: true ,
-          ref: "userModel"},
+        senderId: {
+          type: mongoose.Schema.Types.ObjectId, required: true,
+          ref: "userModel"
+        },
         content: { type: String, required: true },
         date: {
           type: Date,
