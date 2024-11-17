@@ -34,6 +34,7 @@ const userSchema = new mongoose.Schema({
     userRole: {
         type: Number, // 1-> admin , 2->prof , 3->student
         required: true
+        , enum: [1, 2, 3]
     },
     img: {
         type: Buffer,
@@ -48,26 +49,27 @@ const userSchema = new mongoose.Schema({
 
     },
     teams: [{
-        teamID: { type: mongoose.Schema.Types.ObjectId },
-        teamName: { type: String }
+        teamID: { type: mongoose.Schema.Types.ObjectId, ref: "teams" },
+
     }],
     chats: {
         type: [mongoose.Schema.Types.ObjectId],
         ref: "Chats"
     },
     communities: [{
-        commID: { type: mongoose.Schema.Types.ObjectId },
-        commName: { type: String }
+        commID: { type: mongoose.Schema.Types.ObjectId, ref: "communities" },
+
     }],
     notifications: [{
         content: { type: String },
-        date: { type: Date }
+        date: { type: Date, default: Date.now }
 
     }],
-    posts: {
-        type: [mongoose.Schema.Types.ObjectId],
-        ref: "Posts"
-    }
+    posts: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Post"
+    }]
+
 });
 
 userSchema.method("genAuthToken", function () {
