@@ -7,7 +7,7 @@ const chatSchema = new Schema(
       {
         senderId: {
           type: mongoose.Schema.Types.ObjectId, required: true,
-          ref: "userModel"
+          ref: "users"
         },
         content: { type: String, required: true },
         date: {
@@ -25,4 +25,4 @@ const chatSchema = new Schema(
     timestamps: true,
   }
 );
-module.exports = mongoose.model("Chats", chatSchema);
+module.exports = mongoose.model("Chat", chatSchema);

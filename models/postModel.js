@@ -6,7 +6,7 @@ const postSchema = new Schema(
     publisherId: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
-      ref: "userModel",
+      ref: "users",
     },
     content: { type: String, required: true },
     date: {
@@ -24,18 +24,18 @@ const postSchema = new Schema(
         user_id: {
           type: mongoose.Schema.Types.ObjectId,
           required: true,
-          ref: "userModel",
+          ref: "users",
         },
       },
     ],
     commId: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
-      ref: "communityModel",
+      ref: "communities",
     },
   },
   {
     timestamps: true,
   }
 );
-module.exports = mongoose.model("Posts", postSchema);
+module.exports = mongoose.model("post", postSchema);
