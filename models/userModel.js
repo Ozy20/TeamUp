@@ -19,13 +19,13 @@ const userSchema = new mongoose.Schema({
 
     }
     ,
-    // {userName:{
-    //     type:String,    // for the cases when a user needs to find another one
-    //     unique:true,
-    //     required:true,
-    //     minLength: 4,
-    //     maxLength: 15
-    // }}
+    code:{
+        type:String,    // for the cases when a user needs to find another one
+        unique:true,
+        required:true,
+        minLength: 4,
+        maxLength: 15
+    },
      email: {//primary key
         type: String,
         required: true,
