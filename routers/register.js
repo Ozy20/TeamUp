@@ -23,7 +23,7 @@ router.post("/",  async (req, res) => {
             await user.save(); // Save the new user
             const token = user.genAuthToken();
             console.log(token);
-            res.header("log-header-x", token)
+            res.setHeader("Authentication", token)
             res.status(200).send({ message: "User added", data: { name: user.name, email: user.email } });
 
         }
