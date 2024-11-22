@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/userModel.js");
-const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const config = require("config");
 const rateLimit = require("express-rate-limit");
@@ -35,29 +34,13 @@ router.post("/login", loginLimiter, async (req, res) => {
     if (!match) {
       return res.status(401).json({ error: "Invalid password." });
     }
-    // const token = user.genAuthToken();
-    const roleRedirects = {
-      1: "/admin/dashboard",
-      2: "/prof/dashboard",
-      3: "/student/dashboard",
-    };
-    const redirectTo = roleRedirects[user.userRole] || "/";
-
-    const token = jwt.sign(
-      {
-        userid: bcrypt.hashSync(user.id, 10),
-        userRole: user.userRole,
-      },
-      config.get("jwtsec"),
-      { expiresIn: "1h" }
-    );
-
+    const token = user.genAuthToken({ expiresIn: "1h"});
+   
     res.status(200).json({
       message: "Login successful",
       token: token,
-      redirectTo,
       user: {
-        id: user.id,
+        code: user.code,
         name: user.name,
         email: user.email,
         skills: user.skills,
