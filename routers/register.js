@@ -3,14 +3,14 @@ const router = express.Router();
 const User = require("../models/userModel")
 const bcrypt = require("bcrypt")
 const config = require("config")
-
+const userValidator = require("../middlewares/userValidator")
 //terminating the process if the towken is not set 
 if (!config.get("jwtsec")) {
     console.log("");
     process.exit(0);
 }
 //register
-router.post("/",  async (req, res) => {
+router.post("/", userValidator ,async (req, res) => {
 
     try {
         let user = await User.findOne({ email: req.body.email }).exec();
